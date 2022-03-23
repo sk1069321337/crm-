@@ -1,0 +1,14 @@
+$.ajax({
+				url:"",
+				data:"",
+				type:"",
+				dataType:"",
+				success:function (data) {
+
+				}
+			})
+
+
+           activit.setCreateTime(DateTimeUtil.getSysTime());
+           String CreateBy = ((User)request.getSession().getAttribute("user")).getName();
+           activit.setCreateBy(CreateBy);

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bjpowernode.crm.workbench.dao.ActivitDao">
+    <delete id="delect">
+        delete
+        from tbl_activity
+        where id in
+        <foreach collection="array" item="item" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+    </delete>
+    <insert id="save" >
+        insert into tbl_activity(id,owner,name,startDate,endDate,cost,description,createTime,createBy)
+        values (#{id},#{owner},#{name},#{startDate},#{endDate},#{cost},#{description},#{createTime},#{createBy})
+    </insert>
+
+    <select id="getDataListByCondiition" resultType="com.bjpowernode.crm.workbench.domain.Activit">
+        select
+        a.id,a.name,a.startDate,a.endDate,
+        u.name as owner
+        from tbl_activity a
+        join tbl_user u
+        on a.owner = u.id
+        <where>
+            <if test="name != null and name != '' ">
+                a.name like '%' #{name} '%'
+            </if>
+            <if test="owner != null and owner != '' ">
+               and u.name like '%' #{owner} '%'
+            </if>
+            <if test="startDate != null and startDate != '' ">
+                and  a.startDate &gt; #{satratDate}
+            </if>
+            <if test="endDate != null and endDate != '' ">
+                and a.endDate &lt; #{endDate}
+            </if>
+        </where>
+        order by a.createTime desc
+        limit #{count},#{pageSize}
+
+    </select>
+
+    <select id="getTotalByCondiition" resultType="int">
+        select count(*)
+        from tbl_activity a
+        join tbl_user u
+        on a.owner = u.id
+        <where>
+            <if test="name != null and name != '' ">
+                a.name like '%' #{name} '%'
+            </if>
+            <if test="owner != null and owner != '' ">
+                and u.name like '%' #{owner} '%'
+            </if>
+            <if test="startDate != null and startDate != '' ">
+                and  a.startDate &gt; #{satratDate}
+            </if>
+            <if test="endDate != null and endDate != '' ">
+                and a.endDate &lt; #{endDate}
+            </if>
+        </where>
+    </select>
+
+</mapper>
