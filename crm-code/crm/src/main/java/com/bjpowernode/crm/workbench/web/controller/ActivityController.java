@@ -34,7 +34,38 @@ public class ActivityController extends HttpServlet {
             pageList(request,response);
         }if("/workbench/activity/delete.do".equals(path)){
             delete(request,response);
+        }if("/workbench/activity/editGetData.do".equals(path)){
+            getData(request,response);
+        }if("/workbench/activity/updata.do".equals(path)){
+            updata(request,response);
         }
+    }
+
+    private void updata(HttpServletRequest request, HttpServletResponse response) {
+        System.out.println("执行市场活动修改");
+        ActivitService activitService = (ActivitService) ServiceFactory.getService(new ActivitServiceImpl());
+        Activit activit = new Activit();
+        activit.setId(request.getParameter("id"));
+        activit.setOwner(request.getParameter("owner"));
+        activit.setName(request.getParameter("name"));
+        activit.setStartDate(request.getParameter("startDate"));
+        activit.setEndDate(request.getParameter("endDate"));
+        activit.setCost(request.getParameter("cost"));
+        activit.setDescription(request.getParameter("description"));
+        activit.setEditTime(DateTimeUtil.getSysTime());
+        String editBy = ((User)request.getSession().getAttribute("user")).getName();
+        activit.setEditBy(editBy);
+        Boolean success = activitService.updata(activit);
+        PrintJson.printJsonFlag(response,success);
+
+    }
+
+    private void getData(HttpServletRequest request, HttpServletResponse response) {
+        System.out.println("修改调取数据进入成功");
+        String id = request.getParameter("id");
+        ActivitService as = (ActivitService) ServiceFactory.getService(new ActivitServiceImpl());
+        Map<String,Object> data = as.getData(id);
+        PrintJson.printJsonObj(response,data);
     }
 
     private void delete(HttpServletRequest request, HttpServletResponse response) {

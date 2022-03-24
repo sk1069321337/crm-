@@ -13,4 +13,8 @@ public interface ActivitDao {
     List<Activit> getDataListByCondiition(Map<String, Object> map);
 
     int delect(String[] ids);
+
+    Activit getDataById(String id);
+
+    int updata(Activit activit);
 }

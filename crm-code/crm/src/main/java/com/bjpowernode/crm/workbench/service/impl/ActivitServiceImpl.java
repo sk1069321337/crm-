@@ -1,18 +1,22 @@
 package com.bjpowernode.crm.workbench.service.impl;
 
 import com.bjpowernode.crm.Utils.SqlSessionUtil;
+import com.bjpowernode.crm.settings.dao.UserDao;
+import com.bjpowernode.crm.settings.domain.User;
 import com.bjpowernode.crm.vo.PageListVo;
 import com.bjpowernode.crm.workbench.dao.ActivitDao;
 import com.bjpowernode.crm.workbench.dao.ActivitRemarkDao;
 import com.bjpowernode.crm.workbench.domain.Activit;
 import com.bjpowernode.crm.workbench.service.ActivitService;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class ActivitServiceImpl implements ActivitService{
     private ActivitDao activitDao = SqlSessionUtil.getSqlSession().getMapper(ActivitDao.class);
     private ActivitRemarkDao activitRemarkDao = SqlSessionUtil.getSqlSession().getMapper(ActivitRemarkDao.class);
+    private UserDao userDao = SqlSessionUtil.getSqlSession().getMapper(UserDao.class);
     @Override
     public Boolean save(Activit activit) {
         Boolean flag = true;
@@ -49,6 +53,32 @@ public class ActivitServiceImpl implements ActivitService{
         //删除市场活动
         int c = activitDao.delect(ids);
         if(ids.length != c ){
+            flag = false;
+        }
+        return flag;
+    }
+
+    @Override
+    public Map<String, Object> getData(String id) {
+        //获取uList
+        List<User> uList = userDao.getUserList();
+        //获取a
+        Activit a = activitDao.getDataById(id);
+        //封装到map
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("uList",uList);
+        map.put("a",a);
+        //返回map
+        return map;
+    }
+
+    @Override
+    public Boolean updata(Activit activit) {
+        boolean flag = true;
+        //执行更新sql语句返回int
+        int count = activitDao.updata(activit);
+        //判断是否成功返回true,或者false；
+        if(count != 1){
             flag = false;
         }
         return flag;

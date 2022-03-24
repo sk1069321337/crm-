@@ -1,6 +1,8 @@
 $.ajax({
 				url:"",
-				data:"",
+				data:{
+
+				},
 				type:"",
 				dataType:"",
 				success:function (data) {

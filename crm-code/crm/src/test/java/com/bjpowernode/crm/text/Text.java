@@ -10,5 +10,9 @@ import org.apache.ibatis.session.SqlSession;
 import org.junit.Test;
 
 public class Text {
+    @Test
+    public static void main(){
+        DateTimeUtil.getSysTime();
+    }
 
 }

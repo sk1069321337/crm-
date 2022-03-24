@@ -11,4 +11,8 @@ public interface ActivitService {
     PageListVo<Activit> pageList(Map<String, Object> map);
 
     boolean delete(String[] ids);
+
+    Map<String, Object> getData(String id);
+
+    Boolean updata(Activit activit);
 }

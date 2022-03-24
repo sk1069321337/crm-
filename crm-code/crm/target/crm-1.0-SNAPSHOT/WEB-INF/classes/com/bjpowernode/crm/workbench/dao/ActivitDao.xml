@@ -3,6 +3,23 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bjpowernode.crm.workbench.dao.ActivitDao">
+    <update id="updata">
+        update tbl_activity set
+            owner=#{owner},
+            name=#{name},
+            startDate=#{startDate},
+            endDate=#{endDate},
+            cost=#{cost},
+            description=#{description},
+            createTime=#{createTime},
+            createBy=#{createBy},
+            editTime=#{editTime},
+            editBy=#{editBy}
+            where id = #{id}
+    </update>
+    <select id="getDataById" resultType="com.bjpowernode.crm.workbench.domain.Activit">
+        select * from tbl_activity where id = #{id}
+    </select>
     <delete id="delect">
         delete
         from tbl_activity
