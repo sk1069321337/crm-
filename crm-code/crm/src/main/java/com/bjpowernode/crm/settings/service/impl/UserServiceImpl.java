@@ -27,7 +27,7 @@ public class UserServiceImpl implements UserService {
             System.out.println(user.getAllowIps());
             throw new LoginException("IP地址无效，请联系管理员");
         }
-        if("0"== user.getLockState()){
+        if("0".equals(user.getLockState())){
             throw new LoginException("账户已锁定，请联系管理员");
         }
         String nowTime = DateTimeUtil.getSysTime();

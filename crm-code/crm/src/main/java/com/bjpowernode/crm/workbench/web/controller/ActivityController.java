@@ -9,6 +9,7 @@ import com.bjpowernode.crm.settings.service.UserService;
 import com.bjpowernode.crm.settings.service.impl.UserServiceImpl;
 import com.bjpowernode.crm.vo.PageListVo;
 import com.bjpowernode.crm.workbench.domain.Activit;
+import com.bjpowernode.crm.workbench.domain.ActivitRemark;
 import com.bjpowernode.crm.workbench.service.ActivitService;
 import com.bjpowernode.crm.workbench.service.impl.ActivitServiceImpl;
 import jakarta.servlet.ServletException;
@@ -38,7 +39,30 @@ public class ActivityController extends HttpServlet {
             getData(request,response);
         }if("/workbench/activity/updata.do".equals(path)){
             updata(request,response);
+        }if("/workbench/activity/detail.do".equals(path)){
+            detail(request,response);
+        }if("/workbench/activity/showRemarkList.do".equals(path)){
+            showRemarkList(request,response);
         }
+    }
+
+    private void showRemarkList(HttpServletRequest request, HttpServletResponse response) {
+        System.out.println("进入到备注信息查询");
+        String id = request.getParameter("id");
+        ActivitService activitService = (ActivitService) ServiceFactory.getService(new ActivitServiceImpl());
+        List<ActivitRemark> remarks = activitService.showRemarkList(id);
+        PrintJson.printJsonObj(response,remarks);
+    }
+
+    private void detail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        System.out.println("执行详细信息查询");
+        String id = request.getParameter("id");
+        ActivitService activitService = (ActivitService) ServiceFactory.getService(new ActivitServiceImpl());
+        //返回Activity和activityremark
+        Activit a =  activitService.detail(id);
+        request.setAttribute("a",a);
+        //这里只能用转发，不能用重定向，因为保存在request域中
+        request.getRequestDispatcher("/workbench/activity/detail.jsp").forward(request,response);
     }
 
     private void updata(HttpServletRequest request, HttpServletResponse response) {

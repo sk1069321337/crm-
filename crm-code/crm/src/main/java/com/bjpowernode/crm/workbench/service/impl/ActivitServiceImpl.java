@@ -7,6 +7,7 @@ import com.bjpowernode.crm.vo.PageListVo;
 import com.bjpowernode.crm.workbench.dao.ActivitDao;
 import com.bjpowernode.crm.workbench.dao.ActivitRemarkDao;
 import com.bjpowernode.crm.workbench.domain.Activit;
+import com.bjpowernode.crm.workbench.domain.ActivitRemark;
 import com.bjpowernode.crm.workbench.service.ActivitService;
 
 import java.util.HashMap;
@@ -82,5 +83,17 @@ public class ActivitServiceImpl implements ActivitService{
             flag = false;
         }
         return flag;
+    }
+
+    @Override
+    public Activit detail(String id) {
+        Activit a = activitDao.detail(id);
+        return a;
+    }
+
+    @Override
+    public List<ActivitRemark> showRemarkList(String id) {
+        List<ActivitRemark> a = activitRemarkDao.showRemarkList(id);
+        return a;
     }
 }

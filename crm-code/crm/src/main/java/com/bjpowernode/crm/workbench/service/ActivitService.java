@@ -2,7 +2,9 @@ package com.bjpowernode.crm.workbench.service;
 
 import com.bjpowernode.crm.vo.PageListVo;
 import com.bjpowernode.crm.workbench.domain.Activit;
+import com.bjpowernode.crm.workbench.domain.ActivitRemark;
 
+import java.util.List;
 import java.util.Map;
 
 public interface ActivitService {
@@ -15,4 +17,8 @@ public interface ActivitService {
     Map<String, Object> getData(String id);
 
     Boolean updata(Activit activit);
+
+    Activit detail(String id);
+
+    List<ActivitRemark> showRemarkList(String id);
 }
