@@ -43,8 +43,61 @@ public class ActivityController extends HttpServlet {
             detail(request,response);
         }if("/workbench/activity/showRemarkList.do".equals(path)){
             showRemarkList(request,response);
+        }if("/workbench/activity/deleteRemark.do".equals(path)){
+            deleteRemark(request,response);
+        }if("/workbench/activity/saveRemarkBtn.do".equals(path)){
+            saveRemarkBtn(request,response);
+        }if("/workbench/activity/updateRemark.do".equals(path)){
+            updateRemark(request,response);
         }
     }
+
+    private void updateRemark(HttpServletRequest request, HttpServletResponse response) {
+        System.out.println("执行市场活动备注修改");
+        String id = request.getParameter("id");
+        String noteContent = request.getParameter("noteContent");
+        String editTime = DateTimeUtil.getSysTime();
+        String editBy = ((User) request.getSession().getAttribute("user")).getName();
+        String editFlag = "1";
+        ActivitRemark ar = new ActivitRemark();
+        ar.setId(id);
+        ar.setNoteContent(noteContent);
+        ar.setEditTime(editTime);
+        ar.setEditBy(editBy);
+        ar.setEditFlag(editFlag);
+        ActivitService activitService = (ActivitService) ServiceFactory.getService(new ActivitServiceImpl());
+        boolean flag = activitService.updateRemark(ar);
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("success",flag);
+        map.put("ar",ar);
+        PrintJson.printJsonObj(response,map);
+    }
+
+    private void saveRemarkBtn(HttpServletRequest request, HttpServletResponse response) {
+        System.out.println("执行市场活动备注保存");
+        ActivitRemark activitRemark = new ActivitRemark();
+        activitRemark.setId(UUIDUtil.getUUID());
+        activitRemark.setNoteContent(request.getParameter("noteContent"));
+        activitRemark.setCreateTime(DateTimeUtil.getSysTime());
+        activitRemark.setCreateBy(((User)request.getSession().getAttribute("user")).getName());
+        activitRemark.setEditFlag("0");
+        activitRemark.setActivityId(request.getParameter("activityId"));
+        ActivitService activitService = (ActivitService) ServiceFactory.getService(new ActivitServiceImpl());
+        boolean success = activitService.saveRemark(activitRemark);
+        Map<String,Object> map = new HashMap();
+        map.put("success",success);
+        map.put("ar",activitRemark);
+        PrintJson.printJsonObj(response,map);
+    }
+
+    private void deleteRemark(HttpServletRequest request, HttpServletResponse response) {
+        System.out.println("执行市场备注删除");
+        String id = request.getParameter("id");
+        ActivitService activitService = (ActivitService) ServiceFactory.getService(new ActivitServiceImpl());
+        boolean success = activitService.deleteRemark(id);
+        PrintJson.printJsonFlag(response,success);
+    }
+
 
     private void showRemarkList(HttpServletRequest request, HttpServletResponse response) {
         System.out.println("进入到备注信息查询");

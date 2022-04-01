@@ -9,4 +9,10 @@ public interface ActivitRemarkDao {
     int deletecount(String[] ids);
 
     List<ActivitRemark> showRemarkList(String id);
+
+    int deleteRemark(String id);
+
+    int saveRemark(ActivitRemark activitRemark);
+
+    int updateRemark(ActivitRemark ar);
 }

@@ -96,4 +96,35 @@ public class ActivitServiceImpl implements ActivitService{
         List<ActivitRemark> a = activitRemarkDao.showRemarkList(id);
         return a;
     }
+
+    @Override
+    public boolean deleteRemark(String id) {
+        boolean success = true;
+        int i = activitRemarkDao.deleteRemark(id);
+        System.out.println(i);
+        if(i!=1){
+            success = false;
+        }
+        return success;
+    }
+
+    @Override
+    public boolean saveRemark(ActivitRemark activitRemark) {
+        boolean flag = true;
+        int i = activitRemarkDao.saveRemark(activitRemark);
+        if(i!=1){
+            flag = false;
+        }
+        return flag;
+    }
+
+    @Override
+    public boolean updateRemark(ActivitRemark ar) {
+        boolean flag = true;
+        int i = activitRemarkDao.updateRemark(ar);
+        if (i!=1){
+            flag = false;
+        }
+        return flag;
+    }
 }
