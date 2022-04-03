@@ -2,6 +2,7 @@ package com.bjpowernode.crm.workbench.service.impl;
 
 import com.bjpowernode.crm.Utils.SqlSessionUtil;
 import com.bjpowernode.crm.settings.dao.UserDao;
+import com.bjpowernode.crm.settings.domain.DicValue;
 import com.bjpowernode.crm.settings.domain.User;
 import com.bjpowernode.crm.vo.PageListVo;
 import com.bjpowernode.crm.workbench.dao.ActivitDao;
@@ -20,3 +21,4 @@ public class ClueServiceImpl implements ClueService {
     private ClueDao clueDao = SqlSessionUtil.getSqlSession().getMapper(ClueDao.class);
 
 }
+
