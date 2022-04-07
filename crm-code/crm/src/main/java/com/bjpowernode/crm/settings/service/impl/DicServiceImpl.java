@@ -22,7 +22,9 @@ public class DicServiceImpl implements DicService {
         List<DicType> codeList = dicTypeDao.getCode();
         for(DicType cl:codeList){
             String code = cl.getCode();
-            //
+            //根据每次获取的code来获取values;
+            List<DicValue> ValueList = dicValueDao.getValueList(code);
+            map1.put(code,ValueList);
         }
         return map1;
     }

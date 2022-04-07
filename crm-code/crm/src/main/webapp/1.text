@@ -11,6 +11,15 @@ $.ajax({
 			})
 
 
-           activit.setCreateTime(DateTimeUtil.getSysTime());
+           String CreateTime = DateTimeUtil.getSysTime();
            String CreateBy = ((User)request.getSession().getAttribute("user")).getName();
-           activit.setCreateBy(CreateBy);
+
+
+           $(".time").datetimepicker({
+           				minView: "month",
+           				language:  'zh-CN',
+           				format: 'yyyy-mm-dd',
+           				autoclose: true,
+           				todayBtn: true,
+           				pickerPosition: "bottom-left"
+           			});

@@ -127,4 +127,16 @@ public class ActivitServiceImpl implements ActivitService{
         }
         return flag;
     }
+
+    @Override
+    public List<Activit> getActivityListByClueId(String clueId) {
+        List<Activit> activitList = activitDao.getActivityListByClueId(clueId);
+        return activitList;
+    }
+
+    @Override
+    public List<Activit> getUserListbyClue(HashMap<String, String> map) {
+        List<Activit> activitList = activitDao.getUserListbyClue(map);
+        return activitList;
+    }
 }

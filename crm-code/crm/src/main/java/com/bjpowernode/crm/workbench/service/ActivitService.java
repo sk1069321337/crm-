@@ -4,6 +4,7 @@ import com.bjpowernode.crm.vo.PageListVo;
 import com.bjpowernode.crm.workbench.domain.Activit;
 import com.bjpowernode.crm.workbench.domain.ActivitRemark;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -27,4 +28,8 @@ public interface ActivitService {
     boolean saveRemark(ActivitRemark activitRemark);
 
     boolean updateRemark(ActivitRemark ar);
+
+    List<Activit> getActivityListByClueId(String clueId);
+
+    List<Activit> getUserListbyClue(HashMap<String, String> map);
 }
