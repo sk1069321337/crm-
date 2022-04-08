@@ -6,4 +6,6 @@ public interface ClueActivityRelationDao {
 
 
     int unbund(String id);
+
+    int bund(ClueActivityRelation clueActivityRelation);
 }

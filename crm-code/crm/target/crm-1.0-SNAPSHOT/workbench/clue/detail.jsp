@@ -107,12 +107,25 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 				dataType:"json",
 				success:function (data) {
 					if(data.success){
+						//成功后刷新市场活动列表，清空搜索框和市场活动框；
+						$("#allCheck").prop("checked",false)
+						$("#schActBody").html("");
+						$("#aname").val("");
 						$("#bundModal").modal("hide");
+						getActivityListByClueId();
 					}else{
 						alert("关联失败")
 					}
 				}
 			})
+		})
+		//点击全选，选中所有；
+		$("#allCheck").click(function () {
+			$("input[name=xz]").prop("checked",this.checked);
+		})
+		//单选的时候，全选框做出相应反应
+		$("#schActBody").on("click",$("input[name=xz]"),function () {
+			$("#allCheck").prop("checked",$("input[name=xz]").length == $("input[name=xz]:checked").length);
 		})
 	});
 	function getActivityListByClueId(){
@@ -185,7 +198,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 					<table id="activityTable" class="table table-hover" style="width: 900px; position: relative;top: 10px;">
 						<thead>
 							<tr style="color: #B3B3B3;">
-								<td><input type="checkbox"/></td>
+								<td><input id="allCheck" type="checkbox"/></td>
 								<td>名称</td>
 								<td>开始日期</td>
 								<td>结束日期</td>
