@@ -1,6 +1,7 @@
 package com.bjpowernode.crm.workbench.service.impl;
 
 import com.bjpowernode.crm.Utils.SqlSessionUtil;
+import com.bjpowernode.crm.Utils.UUIDUtil;
 import com.bjpowernode.crm.settings.dao.UserDao;
 import com.bjpowernode.crm.settings.domain.DicValue;
 import com.bjpowernode.crm.settings.domain.User;
@@ -22,7 +23,7 @@ import java.util.Map;
 
 public class ClueServiceImpl implements ClueService {
     private ClueDao clueDao = SqlSessionUtil.getSqlSession().getMapper(ClueDao.class);
-    private ClueActivityRelationDao clueActivityRelation = SqlSessionUtil.getSqlSession().getMapper(ClueActivityRelationDao.class);
+    private ClueActivityRelationDao clueActivityRelationDao = SqlSessionUtil.getSqlSession().getMapper(ClueActivityRelationDao.class);
     @Override
     public boolean save(Clue clue) {
         boolean flag = true;
@@ -41,7 +42,7 @@ public class ClueServiceImpl implements ClueService {
 
     @Override
     public boolean unbund(String id) {
-        int i = clueActivityRelation.unbund(id);
+        int i = clueActivityRelationDao.unbund(id);
         boolean flag = true;
         if(i != 1){
             flag = false;
@@ -50,12 +51,20 @@ public class ClueServiceImpl implements ClueService {
     }
 
     @Override
-    public boolean bund(String aid, String[] cids) {
-
-        for(String s:cids){
-
+    public boolean bund(String cid, String[] aids) {
+        boolean flag = true;
+        //先遍历每个数组cids,然后把每个aid和cid封装到clue-activity-relation;然后去掉dao层查询
+        for(String aid:aids){
+            ClueActivityRelation clueActivityRelation = new ClueActivityRelation();
+            clueActivityRelation.setId(UUIDUtil.getUUID());
+            clueActivityRelation.setClueId(cid);
+            clueActivityRelation.setActivityId(aid);
+            int i = clueActivityRelationDao.bund(clueActivityRelation);
+            if(i != 1){
+                flag = false;
+            }
         }
-        return false;
+        return flag;
     }
 }
 

@@ -47,10 +47,11 @@ public class ClueController extends HttpServlet {
     }
 
     private void bund(HttpServletRequest request, HttpServletResponse response) {
-        String aid = request.getParameter("aid");
-        String[] cids = request.getParameterValues("cid");
+        System.out.println("关联市场活动");
+        String cid = request.getParameter("cid");
+        String[] aids = request.getParameterValues("aid");
         ClueService cs = (ClueService) ServiceFactory.getService(new ClueServiceImpl());
-        boolean flag = cs.bund(aid,cids);
+        boolean flag = cs.bund(cid,aids);
         PrintJson.printJsonFlag(response,flag);
     }
 
