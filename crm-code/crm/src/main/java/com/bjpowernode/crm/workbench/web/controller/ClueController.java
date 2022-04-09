@@ -11,6 +11,7 @@ import com.bjpowernode.crm.vo.PageListVo;
 import com.bjpowernode.crm.workbench.domain.Activit;
 import com.bjpowernode.crm.workbench.domain.ActivitRemark;
 import com.bjpowernode.crm.workbench.domain.Clue;
+import com.bjpowernode.crm.workbench.domain.Tran;
 import com.bjpowernode.crm.workbench.service.ActivitService;
 import com.bjpowernode.crm.workbench.service.ClueService;
 import com.bjpowernode.crm.workbench.service.impl.ActivitServiceImpl;
@@ -43,7 +44,46 @@ public class ClueController extends HttpServlet {
             getUserListbyClue(request,response);
         }if("/workbench/clue/bund.do".equals(path)){
             bund(request,response);
+        }if("/workbench/clue/getAlistByAname.do".equals(path)){
+            getAlistByAname(request,response);
+        }if("/workbench/clue/convert.do".equals(path)){
+            convert(request,response);
         }
+    }
+
+    private void convert(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        System.out.println("执行转换线索转换");
+        String clueId = request.getParameter("clueId");
+        String flag = request.getParameter("flag");
+        String createBy = ((User)request.getSession().getAttribute("user")).getName();
+        Tran t = null;
+        if("a".equals(flag)){
+            System.out.println("创建交易");
+            //把表单中创建的数据封装到t中；
+            t = new Tran();
+            t.setId(UUIDUtil.getUUID());
+            t.setName(request.getParameter("name"));
+            t.setMoney(request.getParameter("money"));
+            t.setExpectedDate(request.getParameter("expectedDate"));
+            t.setStage(request.getParameter("stage"));
+            t.setActivityId(request.getParameter("activityId"));
+            t.setCreateTime(DateTimeUtil.getSysTime());
+            t.setCreateBy(createBy);
+        }
+        ClueService clueService = (ClueService) ServiceFactory.getService(new ClueServiceImpl());
+        boolean flag1 = clueService.convert(clueId,t,createBy);
+        if(flag1){
+            response.sendRedirect(request.getContextPath()+"/workbench/clue/index.jsp");
+        }
+
+    }
+
+    private void getAlistByAname(HttpServletRequest request, HttpServletResponse response) {
+        System.out.println("线索转换里面查询市场活动");
+        String aname = request.getParameter("aname");
+        ActivitService as = (ActivitService) ServiceFactory.getService(new ActivitServiceImpl());
+        List<Activit> activitList = as.getAlistByAname(aname);
+        PrintJson.printJsonObj(response,activitList);
     }
 
     private void bund(HttpServletRequest request, HttpServletResponse response) {

@@ -1,5 +1,9 @@
 package com.bjpowernode.crm.workbench.dao;
 
-public interface ClueRemarkDao {
+import com.bjpowernode.crm.workbench.domain.ClueRemark;
 
+import java.util.List;
+
+public interface ClueRemarkDao {
+    List<ClueRemark> getById(String clueId);
 }

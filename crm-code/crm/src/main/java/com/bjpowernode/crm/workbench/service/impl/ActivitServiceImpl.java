@@ -139,4 +139,10 @@ public class ActivitServiceImpl implements ActivitService{
         List<Activit> activitList = activitDao.getUserListbyClue(map);
         return activitList;
     }
+
+    @Override
+    public List<Activit> getAlistByAname(String aname) {
+        List<Activit> activitList = activitDao.getAlistByAname(aname);
+        return activitList;
+    }
 }
