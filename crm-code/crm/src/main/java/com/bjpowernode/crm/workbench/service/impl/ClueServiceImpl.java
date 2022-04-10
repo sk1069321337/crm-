@@ -103,8 +103,8 @@ public class ClueServiceImpl implements ClueService {
             customer.setDescription(clue.getDescription());
             customer.setAddress(clue.getAddress());
             //将创建的客户保存到数据库中
-            int i = customerDao.save(customer);
-            if(i != 1 ){
+            int count1 = customerDao.save(customer);
+            if(count1 != 1 ){
                 flag = false;
             }
         }
@@ -125,16 +125,34 @@ public class ClueServiceImpl implements ClueService {
         contacts.setNextContactTime(clue.getNextContactTime());
         contacts.setOwner(clue.getOwner());
         contacts.setSource(clue.getSource());
-        int i = contactsDao.save(contacts);
-        if (i != 1){
+        int count2 = contactsDao.save(contacts);
+        if (count2 != 1){
             flag = false;
         }
         //(4) 线索备注转换到客户备注以及联系人备注
         List<ClueRemark> clueRemarkList = clueRemarkDao.getById(clueId);
         for(ClueRemark clueRemark:clueRemarkList){
+            //把线索备注转移到客户备注
             String noteContent = clueRemark.getNoteContent();
-
-
+            CustomerRemark customerRemark = new CustomerRemark();
+            customerRemark.setId(UUIDUtil.getUUID());
+            customerRemark.setNoteContent(clueRemark.getNoteContent());
+            customerRemark.setCreateBy(createBy);
+            customerRemark.setCreateTime(creatTime);
+            customerRemark.setEditFlag("0");
+            customerRemark.setCustomerId(customer.getId());
+            int count3 = customerRemarkDao.save(customerRemark);
+            if(count3 != 1){
+                flag = false;
+            }
+            //把线索备注写到联系人备注：
+            ContactsRemark contactsRemark = new ContactsRemark();
+            contactsRemark.setId();
+            con noteContent
+            createBy
+            createTime
+            editFlag
+            contactsId
         }
         return flag;
     }
