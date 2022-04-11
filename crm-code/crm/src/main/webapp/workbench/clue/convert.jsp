@@ -164,7 +164,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	
 		<form id="form" action="workbench/clue/convert.do" method="post">
 			<%--添加一个隐藏域，线索id需要传给后台，用户并不需要看--%>
-			<input type="hidden" name="clueId">
+			<input type="hidden" name="clueId" value="${param.id}">
 			<%--添加一个标签，来判断走的是那一条路径--%>
 			<input type="hidden" name="flag" value="a">
 		  <div class="form-group" style="width: 400px; position: relative; left: 20px;">

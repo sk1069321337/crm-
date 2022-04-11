@@ -4,8 +4,11 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.bjpowernode.crm.workbench.dao.CustomerDao">
+    <select id="getCustomerName" resultType="String">
+        select name from tbl_customer where name like '%' #{name} '%'
+    </select>
     <insert id="save">
-        insert into (
+        insert into tbl_customer(
             id,
             owner,
             name,
@@ -17,7 +20,6 @@
             nextContactTime,
             description,
             address
-            birth
         )values (
             #{id},
             #{owner},
@@ -29,8 +31,7 @@
             #{contactSummary},
             #{nextContactTime},
             #{description},
-            #{address},
-            #{birth}
+            #{address}
         )
     </insert>
   	<select id="getbyCompany" resultType="com.bjpowernode.crm.workbench.domain.Customer">

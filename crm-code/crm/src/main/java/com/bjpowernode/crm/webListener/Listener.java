@@ -31,9 +31,4 @@ public class Listener implements ServletContextListener {
         }
         System.out.println("数字字典初始化已完成");
     }
-
-    @Override
-    public void contextDestroyed(ServletContextEvent sce) {
-        System.out.println("上下文对象已销毁");
-    }
 }

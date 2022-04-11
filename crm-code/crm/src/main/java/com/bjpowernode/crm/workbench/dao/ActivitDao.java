@@ -26,4 +26,5 @@ public interface ActivitDao {
     List<Activit> getUserListbyClue(HashMap<String, String> map);
 
     List<Activit> getAlistByAname(String aname);
+
 }

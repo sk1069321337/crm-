@@ -54,6 +54,7 @@ public class ClueController extends HttpServlet {
     private void convert(HttpServletRequest request, HttpServletResponse response) throws IOException {
         System.out.println("执行转换线索转换");
         String clueId = request.getParameter("clueId");
+        System.out.println("这里是线索id"+clueId);
         String flag = request.getParameter("flag");
         String createBy = ((User)request.getSession().getAttribute("user")).getName();
         Tran t = null;
