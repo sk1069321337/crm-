@@ -50,6 +50,33 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 				todayBtn: true,
 				pickerPosition: "top-left"
 			});
+			$("#saveBtn").click(function () {
+				var owner =$("#create-transactionOwner").html();
+				var money =$("#create-amountOfMoney").val();
+				var name =$("#create-transactionName").val();
+				var expectedDate =$("#create-expectedClosingDate").val();
+				var customerId =$("#create-customerName").val();
+				var transactionStage =$("#create-transactionStage").html();
+				var  =$("#create-transactionType").html();
+				var  =$("#create-possibility").val();
+				var  =$("#create-clueSource").html();
+				var  =$("#activityId").val();
+				var  =$("#create-contactsId").val();
+				var  =$("#create-describe").val();
+				var  =$("#create-contactSummary").val();
+				var  =$("#create-nextContactTime").val();
+				$.ajax({
+					url:"",
+					data:{
+
+					},
+					type:"",
+					dataType:"",
+					success:function (data) {
+
+					}
+				})
+			})
 		})
 	</script>
 
@@ -159,7 +186,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 	<div style="position:  relative; left: 30px;">
 		<h3>创建交易</h3>
 	  	<div style="position: relative; top: -40px; left: 70%;">
-			<button type="button" class="btn btn-primary">保存</button>
+			<button type="button" class="btn btn-primary" id="saveBtn">保存</button>
 			<button type="button" class="btn btn-default">取消</button>
 		</div>
 		<hr style="position: relative; top: -40px;">
@@ -237,7 +264,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 			<label for="create-activitySrc" class="col-sm-2 control-label">市场活动源&nbsp;&nbsp;<a href="javascript:void(0);" data-toggle="modal" data-target="#findMarketActivity"><span class="glyphicon glyphicon-search"></span></a></label>
 			<div class="col-sm-10" style="width: 300px;">
 				<input type="text" class="form-control" id="create-activitySrc" value="发传单1">
-				<input type="hidden" value="94b92a6b31fe4882bc48bdfcb5de17f1">
+				<input type="hidden" value="94b92a6b31fe4882bc48bdfcb5de17f1" id="activityId">
 			</div>
 		</div>
 		
@@ -245,7 +272,7 @@ String basePath = request.getScheme() + "://" + request.getServerName() + ":" + 
 			<label for="create-contactsName" class="col-sm-2 control-label">联系人名称&nbsp;&nbsp;<a href="javascript:void(0);" data-toggle="modal" data-target="#findContacts"><span class="glyphicon glyphicon-search"></span></a></label>
 			<div class="col-sm-10" style="width: 300px;">
 				<input type="text" class="form-control" id="create-contactsName" value="马云">
-				<input type="hidden" value="95b4a790a59c427fb576299096049f35">
+				<input type="hidden" value="95b4a790a59c427fb576299096049f35" id="create-contactsId">
 			</div>
 		</div>
 		
